@@ -1,6 +1,6 @@
 <#
 .DESCRIPTION
-
+ Funcao remove os arquivos 
 .PARAMETER Path
 
 .PARAMETER FileType
@@ -21,10 +21,10 @@ function Remove-FileTypes {
             $FileType
     )
     
-    try { 
+    
         if ([string]::IsNullOrEmpty($FileType)) {
            Get-ChildItem -Path $Path
-           Write-Host " So vai remover os arquivos se expecificar o Paremetro -FileType "
+           Write-Host "So vai remover os arquivos se expecificar o Paremetro -FileType"
         } else {
 
             for ($i = 0; $i -le ($FileType.length - 1); $i += 1) {
@@ -34,21 +34,16 @@ function Remove-FileTypes {
                     if ([string]::IsNullOrEmpty($Files)) {
                         Write-Host "Nao possui arquivos : $($Path, $p)" -ForegroundColor "Green"
                     } else {
-                            for ($t = 0; $t -le ($Files.length - 1); $t += 1){
-                            $Remove = $Files[$t]
-                            write-host "Deletando arquivo $($Remove.FullName)" -ForegroundColor "DarkRed"
-                            Remove-Item $Remove.FullName 
-                            }
+                             for ($t = 0; $t -le ($Files.length - 1); $t += 1){
+                                $Remove = $Files[$t]
+                                write-host "Deletando arquivo $($Remove.FullName)" -ForegroundColor "DarkRed"
+                                Remove-Item -Path $Remove.FullName 
+                                }
                 
                             }
             
             }
             
         }
-    }
-    catch {
-        Write-Error "Erro : $($_.Exception.Message)"
-        
-    }
-    
+
 }
